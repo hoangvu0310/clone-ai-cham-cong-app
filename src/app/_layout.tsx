@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font'
 import { useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import '@/global.css'
+import { StatusBar } from 'expo-status-bar'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -21,9 +22,11 @@ export default function RootLayout() {
 		<SafeAreaProvider>
 			<Stack>
 				<Stack.Screen name={'auth'} options={{ headerShown: false }} />
-				{/*<Stack.Screen/>*/}
+				<Stack.Screen name={'main'} options={{ headerShown: false }} />
 				{/*<Stack.Screen/>*/}
 			</Stack>
+
+			<StatusBar style={'light'} />
 		</SafeAreaProvider>
 	)
 }

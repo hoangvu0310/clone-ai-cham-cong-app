@@ -1,5 +1,13 @@
 import SafeAreaLayout from '@src/components/SafeAreaLayout'
-import { ActivityIndicator, Modal, Text, View } from 'react-native'
+import {
+	ActivityIndicator,
+	Keyboard,
+	KeyboardAvoidingView,
+	Modal,
+	Text,
+	TouchableWithoutFeedback,
+	View,
+} from 'react-native'
 import { COLORS, ICONS, IMAGES } from '@src/constants'
 import TextFormField from '@src/components/TextFormField'
 import FillButton from '@src/components/FillButton'
@@ -39,44 +47,48 @@ export default function Auth() {
 
 	return (
 		<SafeAreaLayout backgroundImageSrc={IMAGES.AuthBackground} backgroundOpacity={0.6}>
-			<View className={'flex-1 items-center justify-center'}>
-				<View className={'w-1/2 gap-[15px]'}>
-					<Text className={'mb-[20px] text-center font-bold text-[28px] text-white'}>
-						{'AI Chấm Công'}
-					</Text>
-					<Controller
-						control={loginForm.control}
-						name={'username'}
-						render={({ field: { value, onChange } }) => (
-							<TextFormField
-								leadingIconSource={ICONS.User}
-								placeholder={'Tài khoản'}
-								value={value}
-								onChangeText={(text) => onChange(text)}
+			<KeyboardAvoidingView className={'flex-1'} behavior={'padding'}>
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+					<View className={'flex-1 items-center justify-center'}>
+						<View className={'w-1/2 gap-[15px]'}>
+							<Text className={'mb-[20px] text-center font-bold text-[28px] text-white'}>
+								{'AI Chấm Công'}
+							</Text>
+							<Controller
+								control={loginForm.control}
+								name={'username'}
+								render={({ field: { value, onChange } }) => (
+									<TextFormField
+										leadingIconSource={ICONS.User}
+										placeholder={'Tài khoản'}
+										value={value}
+										onChangeText={(text) => onChange(text)}
+									/>
+								)}
 							/>
-						)}
-					/>
-					<Controller
-						control={loginForm.control}
-						name={'password'}
-						render={({ field: { value, onChange } }) => (
-							<TextFormField
-								leadingIconSource={ICONS.Lock}
-								isPassword={true}
-								placeholder={'Mật khẩu'}
-								value={value}
-								onChangeText={(text) => onChange(text)}
+							<Controller
+								control={loginForm.control}
+								name={'password'}
+								render={({ field: { value, onChange } }) => (
+									<TextFormField
+										leadingIconSource={ICONS.Lock}
+										isPassword={true}
+										placeholder={'Mật khẩu'}
+										value={value}
+										onChangeText={(text) => onChange(text)}
+									/>
+								)}
 							/>
-						)}
-					/>
 
-					<FillButton
-						label={'ĐĂNG NHẬP'}
-						onPress={loginForm.handleSubmit(onLogin)}
-						buttonStyle={{ width: '60%', alignSelf: 'center', marginTop: 20 }}
-					/>
-				</View>
-			</View>
+							<FillButton
+								label={'ĐĂNG NHẬP'}
+								onPress={loginForm.handleSubmit(onLogin)}
+								buttonStyle={{ width: '60%', alignSelf: 'center', marginTop: 20 }}
+							/>
+						</View>
+					</View>
+				</TouchableWithoutFeedback>
+			</KeyboardAvoidingView>
 
 			<Modal visible={isLoading} transparent={true}>
 				<View
