@@ -8,7 +8,10 @@ module.exports = {
 	presets: [require('nativewind/preset')],
 	theme: {
 		extend: {
-			fontFamily: {},
+			fontFamily: {
+				regular: ['MontserratRegular'],
+				bold: ['MontserratBold'],
+			},
 		},
 		colors: { ...colors },
 	},
