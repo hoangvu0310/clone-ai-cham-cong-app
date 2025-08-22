@@ -26,11 +26,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 				backgroundColor: '#ffffff',
 			},
 			edgeToEdgeEnabled: true,
+			package: 'com.anonymous.CloneAppAIChamCong',
 		},
 		web: {
 			bundler: 'metro',
 		},
-		plugins: ['expo-router', 'expo-font'],
+		plugins: ['expo-router', 'expo-font', 'react-native-vision-camera'],
 		experiments: {
 			typedRoutes: true,
 		},
