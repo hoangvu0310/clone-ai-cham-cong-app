@@ -26,12 +26,14 @@ export default function IconButton({
 }: IconButtonProps) {
 	return (
 		<TouchableOpacity onPress={onPress}>
-			<Image
-				source={iconSource}
-				tintColor={tintColor}
-				resizeMode={'contain'}
-				style={[{ width: 30, height: 30 }, iconStyle]}
-			/>
+			<View style={[buttonStyle]}>
+				<Image
+					source={iconSource}
+					tintColor={tintColor}
+					resizeMode={'contain'}
+					style={[{ width: 30, height: 30 }, iconStyle]}
+				/>
+			</View>
 		</TouchableOpacity>
 	)
 }
