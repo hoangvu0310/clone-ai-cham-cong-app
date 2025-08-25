@@ -7,4 +7,5 @@ export default {
 	Close: require('@assets/icons/ic-close.png'),
 	People: require('@assets/icons/ic-people.png'),
 	Logout: require('@assets/icons/ic-logout.png'),
+	FaceDetection: require('@assets/icons/ic-face-detection.png'),
 }

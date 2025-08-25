@@ -1,6 +1,6 @@
 import SafeAreaLayout from '@src/components/SafeAreaLayout'
 import { ICONS, IMAGES } from '@src/constants'
-import { Image, Modal, Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import Timer from '@src/components/Timer'
 import Carousel from '@src/components/Carousel'
 import Spacer from '@src/components/Spacer'
@@ -8,12 +8,14 @@ import FillButton from '@src/components/FillButton'
 import IconButton from '@src/components/IconButton'
 import { useState } from 'react'
 import MenuModal from '@src/components/MenuModal'
+import FaceDetection from '@src/components/FaceDetection'
 
 export default function Main() {
 	const carouselImages = [IMAGES.Carousel, IMAGES.Carousel, IMAGES.Carousel]
 	const [isMenuVisible, setIsMenuVisible] = useState(false)
+	const [isCheckAttendance, setIsCheckAttendance] = useState(false)
 
-	const onPressCheckAttendance = () => {}
+	const onPressCheckAttendance = () => setIsCheckAttendance(true)
 
 	const onPressMenu = () => setIsMenuVisible(true)
 	const closeMenu = () => setIsMenuVisible(false)
@@ -29,14 +31,20 @@ export default function Main() {
 				</View>
 				<Timer />
 				<Spacer height={10} />
-				<View className={'flex-1 items-center justify-center'}>
-					<Carousel imageSources={carouselImages} />
-					<Spacer height={30} />
-					<FillButton label={'Chấm công'} onPress={onPressCheckAttendance} />
-				</View>
-				<View className={'self-start'}>
-					<IconButton iconSource={ICONS.Dots} onPress={onPressMenu} />
-				</View>
+				{!isCheckAttendance ? (
+					<>
+						<View className={'flex-1 items-center justify-center'}>
+							<Carousel imageSources={carouselImages} />
+							<Spacer height={30} />
+							<FillButton label={'Chấm công'} onPress={onPressCheckAttendance} />
+						</View>
+						<View className={'self-start'}>
+							<IconButton iconSource={ICONS.Dots} onPress={onPressMenu} />
+						</View>
+					</>
+				) : (
+					<FaceDetection closeDetection={() => setIsCheckAttendance(false)} />
+				)}
 			</View>
 
 			<View className={'flex'}>
