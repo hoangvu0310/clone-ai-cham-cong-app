@@ -17,7 +17,7 @@ import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-export default function Auth() {
+export default function Index() {
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
 
