@@ -11,7 +11,12 @@ import IconButton from '@src/components/IconButton'
 import { COLORS, ICONS } from '@src/constants'
 import React, { useState } from 'react'
 import Spacer from '@src/components/Spacer'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import Animated, {
+	interpolate,
+	useAnimatedStyle,
+	useSharedValue,
+	withTiming,
+} from 'react-native-reanimated'
 import { useRouter } from 'expo-router'
 
 type MenuModalProps = {
@@ -22,27 +27,36 @@ type MenuModalProps = {
 export default function MenuModal({ isMenuVisible, closeModal }: MenuModalProps) {
 	const [isMultiCheckin, setIsMultiCheckin] = useState(false)
 	const router = useRouter()
-	const toggleButtonWidth = 70
+	const toggleButtonWidth = 60
 	const toggleButtonHeight = 25
-	const indicatorDimension = 27
+	const indicatorDimension = 25
 
 	const indicatorPositionX = useSharedValue(0)
 	const animatedButtonStyle = useAnimatedStyle(() => {
+		const shadowRadius = interpolate(
+			indicatorPositionX.value,
+			[0, (toggleButtonWidth - indicatorDimension) / 2, toggleButtonWidth - indicatorDimension],
+			[8, 24, 8],
+		)
+
 		return {
 			transform: [
 				{
 					translateX: indicatorPositionX.value,
 				},
 			],
+			shadowColor: COLORS.black,
+			shadowRadius: shadowRadius,
+			shadowOpacity: 0.35,
+			elevation: shadowRadius,
 		}
 	})
 
 	const toggleButton = () => {
 		if (!isMultiCheckin) {
-			indicatorPositionX.value = withTiming(
-				toggleButtonWidth - indicatorDimension + (toggleButtonHeight - indicatorDimension),
-				{ duration: 200 },
-			)
+			indicatorPositionX.value = withTiming(toggleButtonWidth - indicatorDimension, {
+				duration: 200,
+			})
 		} else {
 			indicatorPositionX.value = withTiming(0, { duration: 200 })
 		}
@@ -88,12 +102,12 @@ export default function MenuModal({ isMenuVisible, closeModal }: MenuModalProps)
 										height: toggleButtonHeight,
 										backgroundColor: isMultiCheckin ? COLORS.green1 : COLORS.grey1,
 										borderRadius: 15,
-										borderWidth: 1,
-										borderColor: COLORS.grey1,
+										// borderWidth: 1,
+										// borderColor: COLORS.grey1,
 									}}
 								>
 									<Animated.View
-										className={'absolute rounded-full bg-white shadow-sm'}
+										className={'absolute rounded-full bg-white shadow-lg'}
 										style={[
 											{
 												width: indicatorDimension,
@@ -107,7 +121,7 @@ export default function MenuModal({ isMenuVisible, closeModal }: MenuModalProps)
 							</View>
 
 							<View className={'h-[1px] bg-grey1'} />
-							<TouchableOpacity activeOpacity={0.8} onPress={() => router.replace('/auth')}>
+							<TouchableOpacity activeOpacity={0.8} onPress={() => router.replace('/')}>
 								<View className={'w-full flex-row items-center py-[15px]'}>
 									<Image
 										source={ICONS.Logout}
