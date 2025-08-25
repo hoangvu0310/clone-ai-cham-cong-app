@@ -31,7 +31,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 		web: {
 			bundler: 'metro',
 		},
-		plugins: ['expo-router', 'expo-font', 'react-native-vision-camera'],
+		plugins: [
+			'expo-router',
+			'expo-font',
+			[
+				'react-native-vision-camera',
+				{ cameraPermissionText: 'AI Chấm Công muốn truy cập vào Camera' },
+			],
+		],
 		experiments: {
 			typedRoutes: true,
 		},
